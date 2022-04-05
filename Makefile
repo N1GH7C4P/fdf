@@ -6,7 +6,7 @@
 #    By: linuxlite <linuxlite@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/03 02:27:28 by linuxlite         #+#    #+#              #
-#    Updated: 2022/04/05 03:48:55 by linuxlite        ###   ########.fr        #
+#    Updated: 2022/04/05 04:21:59 by linuxlite        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,12 @@ NAME		= fdf
 INCLUDE		= -I ./libft/ -I /usr/include -I mlx_linux
 LIBS		= -Llibft -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz 
 LIBFT		= libft
+MINILIB		= mlx_linux
 SRC_DIR		= src/
 OBJ_DIR		= src/
 CC			= clang
 CFLAGS		= -Wall -Werror -Wextra -O3 -g -fsanitize=address -v
 RM			= rm -f
-MINILIB		= -I minilibx-linux
 
 # Colors
 
@@ -40,18 +40,17 @@ SRC_FILES	=	fdf window graphics point line lines map projection params
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-
 all:		$(NAME)
 
 $(NAME):	$(OBJ)
+			@make -C $(MINILIB)
 			@make -C $(LIBFT)
-			$(CC) $(CFLAGS) $(OBJ) $(LIBS) -o $(NAME)
+			$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBS) -o $(NAME)
 			@echo "$(GREEN)fdf compiled!$(DEF_COLOR)"
 
 clean:
 			@$(RM) -rf $(OBJ)
+			@make clean -C $(MINILIB)
 			@make clean -C $(LIBFT)
 			@echo "$(BLUE)fdf object files cleaned!$(DEF_COLOR)"
 
