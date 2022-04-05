@@ -3,15 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linuxlite <linuxlite@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kpolojar <kpolojar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 02:32:23 by linuxlite         #+#    #+#             */
-/*   Updated: 2022/04/05 03:25:24 by linuxlite        ###   ########.fr       */
+/*   Updated: 2022/04/05 19:44:05 by kpolojar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 #include "../include/fdf.h"
+
+static int	key_hook(int keycode)
+{
+	if (keycode == 53)
+	{
+		ft_putendl("Exiting FDF");
+		exit(1);
+	}
+	return (0);
+}
 
 static t_map	*parse_file(int fd, int ret, int i)
 {
@@ -51,18 +61,15 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 	{
 		ft_putendl("ARGUMENT ERROR");
-		return (-1);
+		exit(-1);
 	}
 	fd = open(argv[argc - 1], O_RDONLY);
 	map = parse_file(fd, 0, 0);
-	print_map(map);
-	params = new_params(COLOR);
-	lines = create_lines(map, 0, 0, 0);
-	print_all_lines(lines);
-	if (ISOMETRIC_MODE)
-		draw_all_lines_isometrically(lines, params, 0);
-	else
-		draw_all_lines_from_top(lines, params, 0);
+	params = new_params(map);
+	set_background_color(params, BG_COLOR);
+	lines = create_lines(map, params, 0, 0);
+	draw_all_lines(lines, params, 0);
+	mlx_key_hook(params->win, key_hook, &params);
 	mlx_loop(params->mlx);
 	return (0);
 }

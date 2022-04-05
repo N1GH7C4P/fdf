@@ -3,24 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: linuxlite <linuxlite@student.42.fr>        +#+  +:+       +#+         #
+#    By: kpolojar <kpolojar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/03 02:27:28 by linuxlite         #+#    #+#              #
-#    Updated: 2022/04/05 04:21:59 by linuxlite        ###   ########.fr        #
+#    Updated: 2022/04/05 19:29:08 by kpolojar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #Variables
 
 NAME		= fdf
-INCLUDE		= -I ./libft/ -I /usr/include -I mlx_linux
-LIBS		= -Llibft -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz 
+INCLUDE		= -I ./libft/ -I ./minilibx-mac-osx/
+LIBS		= -Llibft -lft -Lmlx -lmlx -framework OpenGL -framework AppKit
 LIBFT		= libft
-MINILIB		= mlx_linux
+MLX			= minilibx
 SRC_DIR		= src/
 OBJ_DIR		= src/
 CC			= clang
-CFLAGS		= -Wall -Werror -Wextra -O3 -g -fsanitize=address -v
+CFLAGS		= -Wall -Werror -Wextra -O3
 RM			= rm -f
 
 # Colors
@@ -42,16 +42,17 @@ OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
 all:		$(NAME)
 
+
 $(NAME):	$(OBJ)
-			@make -C $(MINILIB)
+			@make -C $(MLX)
 			@make -C $(LIBFT)
 			$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBS) -o $(NAME)
 			@echo "$(GREEN)fdf compiled!$(DEF_COLOR)"
 
 clean:
 			@$(RM) -rf $(OBJ)
-			@make clean -C $(MINILIB)
 			@make clean -C $(LIBFT)
+			@make clean -C $(MLX)
 			@echo "$(BLUE)fdf object files cleaned!$(DEF_COLOR)"
 
 fclean:		clean

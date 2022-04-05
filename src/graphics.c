@@ -3,46 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   graphics.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linuxlite <linuxlite@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kpolojar <kpolojar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 02:53:32 by linuxlite         #+#    #+#             */
-/*   Updated: 2022/04/05 03:22:18 by linuxlite        ###   ########.fr       */
+/*   Updated: 2022/04/05 19:11:51 by kpolojar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 #include "../include/fdf.h"
 
-void	draw_all_lines_isometrically(t_line **lines, t_params *p, int i)
+void	set_background_color(t_params *p, int colour)
 {
-	double	d_x;
-	double	d_y;
+	int	i;
+	int	j;
 
-	while (lines[i])
+	i = 0;
+	while (i < WINDOW_H)
 	{
-		d_x = toiso_x(lines[i]->end, ANGLE) - toiso_x(lines[i]->start, ANGLE);
-		d_y = toiso_y(lines[i]->end, ANGLE) - toiso_y(lines[i]->start, ANGLE);
-		lines[i]->start->x = toiso_x(lines[i]->start, ANGLE);
-		lines[i]->start->y = toiso_y(lines[i]->start, ANGLE);
-		draw_line(d_x, d_y, lines[i]->start, p);
+		j = 0;
+		while (j < WINDOW_W)
+		{
+			mlx_pixel_put(p->mlx, p->win, j, i, colour);
+			j++;
+		}
 		i++;
 	}
 }
 
-void	draw_all_lines_from_top(t_line **lines, t_params *p, int i)
+void	draw_all_lines(t_line **lines, t_params *p, int i)
 {
 	double	d_x;
 	double	d_y;
+	t_point	*temp_point;
 
+	temp_point = new_pnt(0, 0, 0);
 	while (lines[i])
 	{
-		d_x = totop_x(lines[i]->end, ANGLE) - totop_x(lines[i]->start, ANGLE);
-		d_y = totop_y(lines[i]->end, ANGLE) - totop_y(lines[i]->start, ANGLE);
-		lines[i]->start->x = totop_x(lines[i]->start, ANGLE);
-		lines[i]->start->y = totop_y(lines[i]->start, ANGLE);
-		draw_line(d_x, d_y, lines[i]->start, p);
+		d_x = toiso_x(lines[i]->end, p->n) - toiso_x(lines[i]->start, p->n);
+		d_y = toiso_y(lines[i]->end, p->n) - toiso_y(lines[i]->start, p->n);
+		temp_point->x = toiso_x(lines[i]->start, p->n);
+		temp_point->y = toiso_y(lines[i]->start, p->n);
+		draw_line(d_x, d_y, temp_point, p);
 		i++;
 	}
+	free(temp_point);
 }
 
 void	draw_line(double d_x, double d_y, t_point *start, t_params *p)

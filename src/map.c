@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linuxlite <linuxlite@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kpolojar <kpolojar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:35:14 by linuxlite         #+#    #+#             */
-/*   Updated: 2022/04/05 02:03:40 by linuxlite        ###   ########.fr       */
+/*   Updated: 2022/04/05 18:40:49 by kpolojar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ static int	count_digits(char *line)
 	while (*line)
 	{
 		if (ft_isdigit(*line))
+		{
 			digits++;
+			while (ft_isdigit(*line))
+				line++;
+			continue ;
+		}
 		line++;
 	}
 	return (digits);
