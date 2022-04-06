@@ -6,15 +6,15 @@
 #    By: kpolojar <kpolojar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/03 02:27:28 by linuxlite         #+#    #+#              #
-#    Updated: 2022/04/05 19:29:08 by kpolojar         ###   ########.fr        #
+#    Updated: 2022/04/06 15:31:26 by kpolojar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #Variables
 
 NAME		= fdf
-INCLUDE		= -I ./libft/ -I ./minilibx-mac-osx/
-LIBS		= -Llibft -lft -Lmlx -lmlx -framework OpenGL -framework AppKit
+INCLUDE		= -I ./libft/ -I ./minilibx/
+LIBS		= -Llibft -lft -Lminilibx -lmlx -framework OpenGL -framework AppKit
 LIBFT		= libft
 MLX			= minilibx
 SRC_DIR		= src/

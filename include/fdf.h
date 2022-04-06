@@ -6,7 +6,7 @@
 /*   By: kpolojar <kpolojar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 16:02:10 by kpolojar          #+#    #+#             */
-/*   Updated: 2022/04/05 19:45:05 by kpolojar         ###   ########.fr       */
+/*   Updated: 2022/04/06 18:11:18 by kpolojar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # define WINDOW_H 768
 # define MAX_W 150
 # define MAX_H 150
-# define X_SCALE 20
-# define Y_SCALE 20
-# define Z_SCALE 5
+# define X_SCALE 5
+# define Y_SCALE 5
+# define Z_SCALE 7
 # define ANGLE -1.57
 # define X_OFFSET 100
-# define Y_OFFSET 100
+# define Y_OFFSET 400
 # define COLOR 0
 # define BG_COLOR 0xABCDEF
 # define BUFF_SIZE 480000
@@ -75,6 +75,7 @@ typedef struct s_point
 }	t_point;
 
 t_point		*new_pnt(float x, float y, float z);
+void		print_point(t_point *p);
 
 // Line
 
@@ -87,6 +88,7 @@ typedef struct s_line
 t_line		*new_line(t_point *start, t_point *end);
 void		line_del(t_line *line);
 void		print_all_lines(t_line **lines);
+int			count_digits(char *line);
 
 // Window
 void		*init_window(void *mlx);

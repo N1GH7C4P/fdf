@@ -6,7 +6,7 @@
 /*   By: kpolojar <kpolojar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 02:32:23 by linuxlite         #+#    #+#             */
-/*   Updated: 2022/04/06 17:23:36 by kpolojar         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:48:41 by kpolojar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static t_map	*parse_file(int fd, int ret, int i)
 
 	buff = ft_strnew(MAX_W);
 	ret = ft_get_next_line(fd, &buff);
-	if (ret < 1)
+	if (ret < 1 || !buff[0])
 		exit(-1);
 	lines = (char **)malloc(sizeof(char *) * MAX_H + 1);
-	while (i < MAX_H && ret > 0)
+	while (i < MAX_H && ret > 0 && buff[0])
 	{
 		lines[i++] = ft_strdup(buff);
 		ret = ft_get_next_line(fd, &buff);
@@ -65,7 +65,6 @@ int	main(int argc, char **argv)
 	params = new_params(map);
 	set_background_color(params, BG_COLOR);
 	lines = create_lines(map, params, 0, 0);
-	print_all_lines(lines);
 	draw_all_lines(lines, params, 0);
 	mlx_key_hook(params->win, key_hook, &params);
 	mlx_loop(params->mlx);
