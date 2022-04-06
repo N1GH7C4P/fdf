@@ -6,7 +6,7 @@
 /*   By: kpolojar <kpolojar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 03:01:15 by linuxlite         #+#    #+#             */
-/*   Updated: 2022/04/05 19:45:17 by kpolojar         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:23:26 by kpolojar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	get_z_at_map_coordinates(t_map *map, int x, int y)
 	i = 0;
 	while (map->content[y][i])
 	{	
-		if (ft_isdigit(map->content[y][i]))
+		if (ft_isdigit(map->content[y][i]) && map->content[y][i + 1] != 'x')
 		{
 			nums++;
 			if (nums == x)
@@ -71,6 +71,7 @@ t_line	**create_lines(t_map *map, t_params *p, int i, int j)
 {
 	t_line	**m;
 	int		l;
+	int		digits;
 
 	l = 0;
 	m = (t_line **)malloc(sizeof(t_line *) * (count_links(map) + 1));
@@ -79,11 +80,12 @@ t_line	**create_lines(t_map *map, t_params *p, int i, int j)
 	while (i < map->height)
 	{
 		j = 0;
-		while (j < map->width)
+		digits = count_digits(map->content[i]);
+		while (j < digits)
 		{
-			if (j < map->width - 1)
+			if (j < digits - 1)
 				m[l++] = c_ln(map, new_pnt(j, i, 0), new_pnt(j + 1, i, 0), p);
-			if (i < map->height - 1)
+			if (i < map->height - 1 && j < count_digits(map->content[i + 1]))
 				m[l++] = c_ln(map, new_pnt(j, i, 0), new_pnt(j, i + 1, 0), p);
 			j++;
 		}
