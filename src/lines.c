@@ -6,7 +6,7 @@
 /*   By: linuxlite <linuxlite@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 03:01:15 by linuxlite         #+#    #+#             */
-/*   Updated: 2022/04/05 03:01:32 by linuxlite        ###   ########.fr       */
+/*   Updated: 2022/04/07 02:28:09 by linuxlite        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static int	get_z_at_map_coordinates(t_map *map, int x, int y)
 	nums = -1;
 	i = 0;
 	while (map->content[y][i])
-	{
-		if (ft_isdigit(map->content[y][i]))
+	{	
+		if (ft_isdigit(map->content[y][i]) && map->content[y][i + 1] != 'x')
 		{
 			nums++;
 			if (nums == x)
@@ -49,7 +49,7 @@ static int	get_z_at_map_coordinates(t_map *map, int x, int y)
 	return (result);
 }
 
-static t_line	*c_ln(t_map *map, t_point *start, t_point *end)
+t_line	*c_ln(t_map *map, t_point *start, t_point *end, t_params *p)
 {
 	t_line	*line;
 	int		z;
@@ -57,32 +57,36 @@ static t_line	*c_ln(t_map *map, t_point *start, t_point *end)
 
 	z = get_z_at_map_coordinates(map, start->x, start->y);
 	ez = get_z_at_map_coordinates(map, end->x, end->y);
-	start->z = Z_SCALE * z;
-	end->z = Z_SCALE * ez;
-	start->x = X_SCALE * start->x;
-	start->y = Y_SCALE * start->y;
-	end->x = X_SCALE * end->x;
-	end->y = Y_SCALE * end->y;
+	start->z = p->z_scale * z;
+	end->z = p->z_scale * ez;
+	start->x = p->x_scale * start->x;
+	start->y = p->y_scale * start->y;
+	end->x = p->x_scale * end->x;
+	end->y = p->y_scale * end->y;
 	line = new_line(start, end);
 	return (line);
 }
 
-t_line	**create_lines(t_map *map, int l, int i, int j)
+t_line	**create_lines(t_map *map, t_params *p, int i, int j)
 {
 	t_line	**m;
+	int		l;
+	int		digits;
 
+	l = 0;
 	m = (t_line **)malloc(sizeof(t_line *) * (count_links(map) + 1));
 	m[count_links(map)] = NULL;
 	i = 0;
 	while (i < map->height)
 	{
 		j = 0;
-		while (j < map->width)
+		digits = count_digits(map->content[i]);
+		while (j < digits)
 		{
-			if (j < map->width - 1)
-				m[l++] = c_ln(map, new_point(j, i, 0), new_point(j + 1, i, 0));
-			if (i < map->height - 1)
-				m[l++] = c_ln(map, new_point(j, i, 0), new_point(j, i + 1, 0));
+			if (j < digits - 1)
+				m[l++] = c_ln(map, new_pnt(j, i, 0), new_pnt(j + 1, i, 0), p);
+			if (i < map->height - 1 && j < count_digits(map->content[i + 1]))
+				m[l++] = c_ln(map, new_pnt(j, i, 0), new_pnt(j, i + 1, 0), p);
 			j++;
 		}
 		i++;
@@ -117,4 +121,20 @@ void	print_all_lines(t_line **lines)
 		ft_putendl(")");
 		i++;
 	}
+}
+
+void	free_lines(t_line **lines)
+{
+	int i;
+
+	i = 0;
+	while (lines[i])
+	{
+		ft_putstr("i: ");
+		ft_putnbr(i);
+		ft_putendl("");
+		line_del(lines[i]);
+		i++;
+	}
+	free(lines);
 }

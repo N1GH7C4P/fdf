@@ -3,26 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linuxlite <linuxlite@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kpolojar <kpolojar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:35:14 by linuxlite         #+#    #+#             */
-/*   Updated: 2022/04/05 02:03:40 by linuxlite        ###   ########.fr       */
+/*   Updated: 2022/04/06 17:24:30 by kpolojar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 #include "../include/fdf.h"
 
-static int	count_digits(char *line)
+int	count_digits(char *line)
 {
 	int	digits;
+	int	i;
 
 	digits = 0;
-	while (*line)
+	i = 0;
+	if (!line)
+		return (0);
+	while (line[i])
 	{
-		if (ft_isdigit(*line))
+		if (ft_isdigit(line[i]) && line[i + 1] != 'x')
+		{
 			digits++;
-		line++;
+			while (ft_isdigit(line[i]))
+				i++;
+			continue ;
+		}
+		i++;
 	}
 	return (digits);
 }
