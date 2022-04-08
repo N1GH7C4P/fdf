@@ -6,7 +6,7 @@
 /*   By: linuxlite <linuxlite@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 03:01:15 by linuxlite         #+#    #+#             */
-/*   Updated: 2022/04/07 02:28:09 by linuxlite        ###   ########.fr       */
+/*   Updated: 2022/04/08 03:26:17 by linuxlite        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	get_z_at_map_coordinates(t_map *map, int x, int y)
 	nums = -1;
 	i = 0;
 	while (map->content[y][i])
-	{	
+	{
 		if (ft_isdigit(map->content[y][i]) && map->content[y][i + 1] != 'x')
 		{
 			nums++;
@@ -67,26 +67,26 @@ t_line	*c_ln(t_map *map, t_point *start, t_point *end, t_params *p)
 	return (line);
 }
 
-t_line	**create_lines(t_map *map, t_params *p, int i, int j)
+t_line	**create_lines(t_params *p, int i, int j)
 {
 	t_line	**m;
 	int		l;
 	int		digits;
 
 	l = 0;
-	m = (t_line **)malloc(sizeof(t_line *) * (count_links(map) + 1));
-	m[count_links(map)] = NULL;
+	m = (t_line **)malloc(sizeof(t_line *) * (count_links(p->map) + 1));
+	m[count_links(p->map)] = NULL;
 	i = 0;
-	while (i < map->height)
+	while (i < p->map->height)
 	{
 		j = 0;
-		digits = count_digits(map->content[i]);
+		digits = cnt_dgts(p->map->content[i]);
 		while (j < digits)
 		{
 			if (j < digits - 1)
-				m[l++] = c_ln(map, new_pnt(j, i, 0), new_pnt(j + 1, i, 0), p);
-			if (i < map->height - 1 && j < count_digits(map->content[i + 1]))
-				m[l++] = c_ln(map, new_pnt(j, i, 0), new_pnt(j, i + 1, 0), p);
+				m[l++] = c_ln(p->map, new_p(j, i, 0), new_p(j + 1, i, 0), p);
+			if (i < p->map->height - 1 && j < cnt_dgts(p->map->content[i + 1]))
+				m[l++] = c_ln(p->map, new_p(j, i, 0), new_p(j, i + 1, 0), p);
 			j++;
 		}
 		i++;
@@ -94,45 +94,13 @@ t_line	**create_lines(t_map *map, t_params *p, int i, int j)
 	return (m);
 }
 
-void	print_all_lines(t_line **lines)
+void	free_all_lines(t_line **lines)
 {
 	int	i;
 
 	i = 0;
 	while (lines[i])
 	{
-		ft_putstr("line: ");
-		ft_putnbr(i);
-		ft_putstr(" start: ");
-		ft_putstr("(");
-		ft_putnbr(lines[i]->start->x);
-		ft_putstr(", ");
-		ft_putnbr(lines[i]->start->y);
-		ft_putstr(", ");
-		ft_putnbr(lines[i]->start->z);
-		ft_putstr(")");
-		ft_putstr(" end: ");
-		ft_putstr("(");
-		ft_putnbr(lines[i]->end->x);
-		ft_putstr(", ");
-		ft_putnbr(lines[i]->end->y);
-		ft_putstr(", ");
-		ft_putnbr(lines[i]->end->z);
-		ft_putendl(")");
-		i++;
-	}
-}
-
-void	free_lines(t_line **lines)
-{
-	int i;
-
-	i = 0;
-	while (lines[i])
-	{
-		ft_putstr("i: ");
-		ft_putnbr(i);
-		ft_putendl("");
 		line_del(lines[i]);
 		i++;
 	}

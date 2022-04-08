@@ -6,7 +6,7 @@
 #    By: linuxlite <linuxlite@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/03 02:27:28 by linuxlite         #+#    #+#              #
-#    Updated: 2022/04/05 04:21:59 by linuxlite        ###   ########.fr        #
+#    Updated: 2022/04/08 02:38:32 by linuxlite        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ MAGENTA = \033[0;95m
 CYAN = \033[0;96m
 WHITE = \033[0;97m
 
-SRC_FILES	=	fdf window graphics point line lines map projection params
+SRC_FILES	=	fdf window graphics point line lines map projection params controls_a controls_b
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))

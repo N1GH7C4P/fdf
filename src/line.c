@@ -6,7 +6,7 @@
 /*   By: linuxlite <linuxlite@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 02:04:31 by linuxlite         #+#    #+#             */
-/*   Updated: 2022/04/05 03:03:28 by linuxlite        ###   ########.fr       */
+/*   Updated: 2022/04/08 03:03:26 by linuxlite        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ t_line	*new_line(t_point *start, t_point *end)
 
 void	line_del(t_line *line)
 {
-	line->start = NULL;
-	line->end = NULL;
 	free(line->start);
 	free(line->end);
-	line = NULL;
 	free(line);
 }

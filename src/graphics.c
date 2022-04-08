@@ -6,7 +6,7 @@
 /*   By: linuxlite <linuxlite@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 02:53:32 by linuxlite         #+#    #+#             */
-/*   Updated: 2022/04/07 03:03:13 by linuxlite        ###   ########.fr       */
+/*   Updated: 2022/04/08 03:23:24 by linuxlite        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,19 @@ void	set_background_color(t_params *p, int colour)
 	}
 }
 
-void	draw_all_lines(t_line **lines, t_params *p, int i)
+void	draw_all_lines(t_params *p, int i)
 {
 	double	d_x;
 	double	d_y;
 	t_point	*temp_point;
 
-	temp_point = new_pnt(0, 0, 0);
-	while (lines[i])
+	temp_point = new_p(0, 0, 0);
+	while (p->lines[i])
 	{
-		d_x = toiso_x(lines[i]->end, p->n) - toiso_x(lines[i]->start, p->n);
-		d_y = toiso_y(lines[i]->end, p->n) - toiso_y(lines[i]->start, p->n);
-		temp_point->x = toiso_x(lines[i]->start, p->n);
-		temp_point->y = toiso_y(lines[i]->start, p->n);
+		d_x = iso_x(p->lines[i]->end, p->n) - iso_x(p->lines[i]->start, p->n);
+		d_y = iso_y(p->lines[i]->end, p->n) - iso_y(p->lines[i]->start, p->n);
+		temp_point->x = iso_x(p->lines[i]->start, p->n);
+		temp_point->y = iso_y(p->lines[i]->start, p->n);
 		draw_line(d_x, d_y, temp_point, p);
 		i++;
 	}
@@ -54,8 +54,8 @@ void	draw_line(double d_x, double d_y, t_point *start, t_params *p)
 {
 	int		pixels;
 
-	start->x += X_OFFSET;
-	start->y += Y_OFFSET;
+	start->x += p->x_offset;
+	start->y += p->y_offset;
 	pixels = sqrt((d_x * d_x) + (d_y * d_y));
 	d_x = d_x / pixels;
 	d_y = d_y / pixels;

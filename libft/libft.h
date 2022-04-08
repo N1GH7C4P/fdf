@@ -6,7 +6,7 @@
 /*   By: linuxlite <linuxlite@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 17:53:36 by kpolojar          #+#    #+#             */
-/*   Updated: 2022/03/25 23:20:51 by linuxlite        ###   ########.fr       */
+/*   Updated: 2022/04/08 02:54:06 by linuxlite        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		ft_strnequ(char const *s1, char const *s2, size_t n);
 int		*ft_range(int min, int max);
 int		ft_count_if(char **tab, int (*f)(char*));
 int		ft_get_next_line(const int fd, char **line);
-char	**ft_free_array(char **array);
+void	ft_free_array(char **array);
 t_list	*ft_lstnew(void const *content, size_t content_size);
 t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 

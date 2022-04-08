@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   point.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kpolojar <kpolojar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: linuxlite <linuxlite@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 03:19:36 by linuxlite         #+#    #+#             */
-/*   Updated: 2022/04/06 16:25:46 by kpolojar         ###   ########.fr       */
+/*   Updated: 2022/04/08 03:29:52 by linuxlite        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 #include "../include/fdf.h"
 
-t_point	*new_pnt(float x, float y, float z)
+t_point	*new_p(float x, float y, float z)
 {
 	t_point	*new_point;
 

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   projection.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kpolojar <kpolojar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: linuxlite <linuxlite@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 00:59:58 by linuxlite         #+#    #+#             */
-/*   Updated: 2022/04/05 18:50:31 by kpolojar         ###   ########.fr       */
+/*   Updated: 2022/04/08 03:20:48 by linuxlite        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 #include "../include/fdf.h"
 
-int	toiso_x(t_point *p, float angle)
+int	iso_x(t_point *p, float angle)
 {
 	int	projected_x;
 
@@ -21,7 +21,7 @@ int	toiso_x(t_point *p, float angle)
 	return (projected_x);
 }
 
-int	toiso_y(t_point *p, float angle)
+int	iso_y(t_point *p, float angle)
 {
 	int	projected_y;
 
